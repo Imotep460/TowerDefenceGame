@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public int playerStartCash;                 // The amount of cash the player starts the game with.
 
     [Header("Components")]
-    public TextMeshProUGUI healthAndMoneyText;  // The text component that displays the Players Health and Cash.
+    public TextMeshProUGUI healthAndCashText;   // The text component that displays the Players Health and Cash.
     public EnemyPath enemyPath;                 // The waypoints that the enemies follow.
 
     [Header("Events")]
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
 
     // Ensure that GameManager is created as a Singleton.
-    public static GameManager instance;     // Reference the GameManager.
+    public static GameManager instance;         // Reference the GameManager.
 
     /// <summary>
     /// Using Awake make sure that GameManager is created as a Singleton.
@@ -33,7 +33,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        // Set the Instance reference.
         instance = this;
+        // Make sure that the health and cash text matches on game start.
+        healthAndCashText.text = $"Health: {currentPlayerHealth} / {playerHealthMax}\nCash: ${playerStartCash}";
     }
 
     /// <summary>
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void UpdateHealthAndCashText()
     {
-        healthAndMoneyText.text = $"Health: {currentPlayerHealth}/{playerHealthMax}\n Cash: ${currentPlayerCash}";
+        healthAndCashText.text = $"Health: {currentPlayerHealth} / {playerHealthMax}\nCash: ${currentPlayerCash}";
     }
 
     /// <summary>
@@ -50,9 +53,11 @@ public class GameManager : MonoBehaviour
     /// <param name="amount">The amount of cash the Player has earned.</param>
     public void AddCash(int amount)
     {
+        // Award the currentPlayerCash with the amount the Player is awarded with for killing an Enemy object.
         currentPlayerCash += amount;
+        // Update the Player healthAndCashText so that the UI reflects the correct amount of available cas´h that the Player has.
         UpdateHealthAndCashText();
-
+        // Invoke the onPlayerCashChanged event.
         onPlayerCashChanged.Invoke();
     }
 
