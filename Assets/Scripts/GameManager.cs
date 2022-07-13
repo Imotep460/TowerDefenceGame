@@ -35,8 +35,14 @@ public class GameManager : MonoBehaviour
     {
         // Set the Instance reference.
         instance = this;
+    }
+
+    private void Start()
+    {
+        // Set the Player current cash to be the Player Start cash.
+        currentPlayerCash = playerStartCash;
         // Make sure that the health and cash text matches on game start.
-        healthAndCashText.text = $"Health: {currentPlayerHealth} / {playerHealthMax}\nCash: ${playerStartCash}";
+        UpdateHealthAndCashText();
     }
 
     /// <summary>
