@@ -7,15 +7,5 @@ using UnityEngine;
 /// </summary>
 public class TowerTile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Tower tower;     // Reference the Tower placed on the TowerTile.
 }

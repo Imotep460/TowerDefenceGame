@@ -43,11 +43,11 @@ public class TowerButtonUI : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Send the data for the Tower whose button is being clicked to the SelectTowerToPlace method in the GameManager.
     /// </summary>
     public void OnClick()
     {
-
+        GameManager.instance.towerPlacement.SelectTowerToPlace(towerData);
     }
 
     /// <summary>

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("Components")]
     public TextMeshProUGUI healthAndCashText;   // The text component that displays the Players Health and Cash.
     public EnemyPath enemyPath;                 // The waypoints that the enemies follow.
+    public TowerPlacement towerPlacement;       // Reference the TowerPlacement script.
 
     [Header("Events")]
     public UnityEvent onEnemyDestroyed;         // Event called when a enemy is destoyed.
