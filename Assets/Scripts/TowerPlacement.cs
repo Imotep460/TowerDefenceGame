@@ -90,9 +90,25 @@ public class TowerPlacement : MonoBehaviour
         previewTower.SetPreviewTower(towerData);
     }
 
+    /// <summary>
+    /// Subtracts cash from the Player.
+    /// Spawns the TowerPrefab for the tower being placed.
+    /// </summary>
     private void PlaceTower()
     {
+        // Set a Vector3 to represent the position where the Tower is being placed.
+        Vector3 position = currentSelectedTowerTile.transform.position + new Vector3(0, towerPlaceYOffset, 0);
+        // Reference a GameObject to hold the newly instantiated Tower, Instantiate the new Tower on the currentSelectedTowerTile.
+        GameObject towerToPlace = Instantiate(towerToPlaceData.towerPrefab, position, Quaternion.identity);
 
+        // Set the Tower for the currentSelectedTowerTIle so that no more Towers can be placed on the TowerTile.
+        currentSelectedTowerTile.tower = towerToPlace.GetComponent<Tower>();
+
+        // Subtract cash from the Players cash pool.
+        GameManager.instance.TakeCash(towerToPlaceData.towerCost);
+
+        // Cancel the TowerPlacement
+        CancelTowerPlacement();
     }
 
     /// <summary>
