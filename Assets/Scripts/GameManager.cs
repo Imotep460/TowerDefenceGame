@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI healthAndCashText;   // The text component that displays the Players Health and Cash.
     public EnemyPath enemyPath;                 // The waypoints that the enemies follow.
     public TowerPlacement towerPlacement;       // Reference the TowerPlacement script.
+    public EndScreenUIController endScreen;     // Reference the EndScreen prefab.
+    public WaveSpawner waveSpawner;             // Reference the WaveSpawner.
 
     [Header("Events")]
     public UnityEvent onEnemyDestroyed;         // Event called when a enemy is destoyed.
@@ -98,18 +100,26 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// If the Player has no more health left the Player looses the game.
+    /// Activate and set the EndScreen.
     /// </summary>
     private void GameOver()
     {
-
+        // Activate the EndScreen object.
+        endScreen.gameObject.SetActive(false);
+        // Set the EndScreen data.
+        endScreen.SetEndScreen(false, waveSpawner.currentWave);
     }
 
     /// <summary>
     /// When the Player has met the requirements to win the game, the Player wins the game.
+    /// Activate and set the EndScreen.
     /// </summary>
     private void GameWin()
     {
-
+        // Activate the EndScreen object.
+        endScreen.gameObject.SetActive(true);
+        // Set the EndScreen data.
+        endScreen.SetEndScreen(true, waveSpawner.currentWave);
     }
 
     /// <summary>
@@ -117,6 +127,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnEnemyDestroyed()
     {
-
+        // Check if there are enemies left AND that the Player is on the games last wave.
+        if (waveSpawner.remainingEnemies == 0 && waveSpawner.currentWave == waveSpawner.waves.Length)
+        {
+            // Call the win game method, when the Player has killed all enemies and the Player has reached the final wave of the Game.
+            GameWin();
+        }
     }
 }
