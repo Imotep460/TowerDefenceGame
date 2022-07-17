@@ -11,24 +11,34 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    public int enemyMaxHealth;      // The maximum health that the enemy can have.
-    public int enemyCurrentHealth;  // The current health that the enemy has.
-    public int enemyDamage;         // The damage that the enemy can do to the Player.
-    public int cashOnDeath;         // The amount of cash that the Player gets for destroying the enemy.
-    public float enemyMovespeed;    // The movementspeed of the enemy.
+    public int enemyMaxHealth;          // The maximum health that the enemy can have.
+    public int enemyCurrentHealth;      // The current health that the enemy has.
+    public int enemyDamage;             // The damage that the enemy can do to the Player.
+    public int cashOnDeath;             // The amount of cash that the Player gets for destroying the enemy.
+    public float enemyMovespeed;        // The movementspeed of the enemy.
 
     /// <summary>
     /// To shrink down the code the enemy references the path the enemy takes on the map.
     /// </summary>
     [Header("Enemy Path")]
-    private Transform[] path;       // The array storing the Path for the enemy.
-    private int currentWaypoint;    // The current waypoint the enemy is moving towards.
+    private Transform[] path;           // The array storing the Path for the enemy.
+    private int currentWaypoint;        // The current waypoint the enemy is moving towards.
 
+    public GameObject healthBarPrefab;  // Reference the Enemy's healthBar.
     // Start is called before the first frame update
     void Start()
     {
         // Get the path for the enemy.
         path = GameManager.instance.enemyPath.waypoints;
+
+        // Instantiate the Enemy healthBar.
+        // Start with referencing the Scene canvas.
+        Canvas canvas = FindObjectOfType<Canvas>();
+
+        // Instantiate the healthbar.
+        GameObject enemyHealthBar = Instantiate(healthBarPrefab, canvas.transform);
+        // Set the healthbar variables by sending over the Enemy object data.
+        enemyHealthBar.GetComponent<EnemyHealthBar>().Initialize(this);
     }
 
     // Update is called once per frame

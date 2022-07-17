@@ -52,6 +52,7 @@ MonoBehaviour:
   enemyDamage: 1
   cashOnDeath: 50
   enemyMovespeed: 1
+  healthBarPrefab: {fileID: 4093583544369101898, guid: 666d0199a1091224da08c458f3803ced, type: 3}
 --- !u!54 &2880120871990950905
 Rigidbody:
   m_ObjectHideFlags: 0
