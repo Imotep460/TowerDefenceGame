@@ -82,7 +82,7 @@ MonoBehaviour:
   rotateTowardsTarget: 1
   projectilePrefab: {fileID: 1807466496134246619, guid: afbffabeec3dcf348a1d0460935493d9, type: 3}
   projectileSpawnPosition: {fileID: 7148460325734834849}
-  projectileDamage: 3
+  projectileDamage: 0
   rateOfFire: 2
   projectileSpeed: 6
   towerRange: 3
