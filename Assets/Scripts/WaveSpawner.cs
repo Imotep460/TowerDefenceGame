@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 /// <summary>
@@ -17,6 +18,27 @@ public class WaveSpawner : MonoBehaviour
     public Transform enemySpawnPosition;    // Where to spawn the enemies.
     public TextMeshProUGUI waveText;        // Reference UI so information about the wave can be displayed for the Player.
     public GameObject nextWaveButton;       // Reference the UI button that can start the next wave.
+
+    [Header("Events")]
+    public UnityEvent OnEnemyRemoved;       // 
+
+    /// <summary>
+    /// Called when the WaveSpawner Object is Enabled.
+    /// </summary>
+    private void OnEnable()
+    {
+        // Setup a listener that listens to the Enemy.OnDestroyed event/action from the Enemy script.
+        Enemy.OnDestroyed += OnEnemyDestroyed;
+    }
+
+    /// <summary>
+    /// Called when the WaveSpawner Object is Disabled.
+    /// </summary>
+    private void OnDisable()
+    {
+        // Remove a listener that listens to the Enemy.OnDestroyed event/action from the Enemy script.
+        Enemy.OnDestroyed -= OnEnemyDestroyed;
+    }
 
     public void SpawnNextWave()
     {
@@ -86,5 +108,6 @@ public class WaveSpawner : MonoBehaviour
             // Re-enable the nextWaveButton.
             nextWaveButton.SetActive(true);
         }
+        OnEnemyRemoved?.Invoke();
     }
 }

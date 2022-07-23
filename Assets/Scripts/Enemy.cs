@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Implements the Enemy Stats, and localises the Enemys path.
@@ -24,7 +25,11 @@ public class Enemy : MonoBehaviour
     private Transform[] path;           // The array storing the Path for the enemy.
     private int currentWaypoint;        // The current waypoint the enemy is moving towards.
 
+    [Header("Components")]
     public GameObject healthBarPrefab;  // Reference the Enemy's healthBar.
+
+    public static event UnityAction OnDestroyed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,7 +77,7 @@ public class Enemy : MonoBehaviour
             // If the enemy has reached the final waypoint damage the Player.
             GameManager.instance.TakeDamage(enemyDamage);
             // After damaging the Player Invoke the onEnemyDestroyed event.
-            GameManager.instance.onEnemyDestroyed.Invoke();
+            OnDestroyed.Invoke();
             // Then destroy the Enemy Gameobject.
             Destroy(this.gameObject);
         }
@@ -92,7 +97,7 @@ public class Enemy : MonoBehaviour
             // Give cash to the Player as a reward for killing the Enemy.
             GameManager.instance.AddCash(cashOnDeath);
             // Invoke the onEnemyDestroyed event.
-            GameManager.instance.onEnemyDestroyed.Invoke();
+            OnDestroyed.Invoke();
             // Destroy the Enemy Gameobject.
             Destroy(this.gameObject);
         }
