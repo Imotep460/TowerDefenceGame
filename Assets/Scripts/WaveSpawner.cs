@@ -13,6 +13,7 @@ public class WaveSpawner : MonoBehaviour
     public WaveData[] waves;                // Reference all the waves being spawned in the game.
     public int currentWave = 0;             // Keep track of what wave we have reached.
     public int remainingEnemies;            // How many enemies are left.
+    public int waveEnemies;                 // How many enemies to spawn for the current wave.
 
     [Header("Components")]
     public Transform enemySpawnPosition;    // Where to spawn the enemies.
@@ -66,6 +67,11 @@ public class WaveSpawner : MonoBehaviour
         // Get the data for the wave to be spawned.
         WaveData wave = waves[currentWave - 1];
 
+        foreach (var enemyset in wave.enemySets)
+        {
+            waveEnemies += enemyset.spawnAmount;
+        }
+
         // Loop through the waves's enemysets
         for (int x = 0; x < wave.enemySets.Length; x++)
         {
@@ -101,9 +107,10 @@ public class WaveSpawner : MonoBehaviour
     {
         // Subtract from remainingEnemies.
         remainingEnemies--;
-
+        // Since an enemy died subtract from the waveSpawner.waveEnemies.
+        waveEnemies--;
         // Check if all Enemies has been killed.
-        if (remainingEnemies == 0)
+        if (remainingEnemies == 0 && waveEnemies == 0)
         {
             // Re-enable the nextWaveButton.
             nextWaveButton.SetActive(true);

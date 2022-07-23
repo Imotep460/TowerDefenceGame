@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
         currentPlayerCash = playerStartCash;
         // Make sure that the health and cash text matches on game start.
         UpdateHealthAndCashText();
+        // In the beginning of the game there are no enemies set the waveSpawner.waveEnemies to reflect this.
+        waveSpawner.waveEnemies = 0;
     }
 
     /// <summary>
@@ -150,13 +152,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnEnemyDestroyed()
     {
-        if(!isGameActive)
+        if (!isGameActive)
         {
             // If the game is not active don't do anything when an Enemy is destroyed.
             return;
         }
-        // Check if there are enemies left AND that the Player is on the games last wave.
-        if (waveSpawner.remainingEnemies == 0 && waveSpawner.currentWave == waveSpawner.waves.Length)
+         // Check if there are enemies left AND that the Player is on the games last wave.
+        if (waveSpawner.remainingEnemies == 0 && waveSpawner.currentWave == waveSpawner.waves.Length && waveSpawner.waveEnemies == 0)
         {
             // Call the win game method, when the Player has killed all enemies and the Player has reached the final wave of the Game.
             GameWin();
