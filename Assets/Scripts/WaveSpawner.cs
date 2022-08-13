@@ -14,6 +14,7 @@ public class WaveSpawner : MonoBehaviour
     public int currentWave = 0;             // Keep track of what wave we have reached.
     public int remainingEnemies;            // How many enemies are left.
     public int waveEnemies;                 // How many enemies to spawn for the current wave.
+    public bool isSpawning;                 // Bool to identify if the wavespawner is vurrently spawning units
 
     [Header("Components")]
     public Transform enemySpawnPosition;    // Where to spawn the enemies.
@@ -21,7 +22,7 @@ public class WaveSpawner : MonoBehaviour
     public GameObject nextWaveButton;       // Reference the UI button that can start the next wave.
 
     [Header("Events")]
-    public UnityEvent OnEnemyRemoved;       // 
+    public UnityEvent OnEnemyRemoved;       // Event called when an Enemy is removed from play.
 
     /// <summary>
     /// Called when the WaveSpawner Object is Enabled.
